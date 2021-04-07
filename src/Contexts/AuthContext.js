@@ -30,7 +30,12 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = (email) => {
     return auth.sendPasswordResetEmail(email);
   };
-
+  const updateEmail = (newEmail) => {
+    return currentUser.updateEmail(newEmail);
+  };
+  const updatePassword = (newPassword) => {
+    return currentUser.updatePassword(newPassword);
+  };
   useEffect(() => {
     //whenever a new user is logged in, this method is called
     //in use effect to only set listener once, and to unsubscribe when needed
@@ -48,6 +53,8 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     resetPassword,
+    updateEmail,
+    updatePassword,
   };
   return (
     <AuthContext.Provider value={value}>

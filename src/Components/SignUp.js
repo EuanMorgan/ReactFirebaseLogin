@@ -9,6 +9,7 @@ export default () => {
   const { signUp } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -21,6 +22,7 @@ export default () => {
       setError("");
       setLoading(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
+      setMessage("Account created successfully! Please login");
     } catch (error) {
       console.log(error);
       setError(`Failed to create an account.${error.message}`);
@@ -34,6 +36,7 @@ export default () => {
         <Card.Body>
           <h2 style={{ textAlign: "center", marginBottom: "4%" }}>Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
+          {message && <Alert variant="success">{message}</Alert>}
           <Form onSubmit={submitHandler}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>

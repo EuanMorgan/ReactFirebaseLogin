@@ -5,7 +5,8 @@ import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
 import Login from "./Components/Login";
 import PrivateRoute from "./Components/PrivateRoute";
-import ForgotPassword from "./Components/ForgotPassword"
+import ForgotPassword from "./Components/ForgotPassword";
+import UpdateProfile from "./Components/UpdateProfile";
 const App = () => {
   const Container = styled.div`
     display: flex;
@@ -22,6 +23,7 @@ const App = () => {
           <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={Dashboard} />
+              <PrivateRoute path="/update-profile" component={UpdateProfile} />
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />
