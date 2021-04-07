@@ -1,14 +1,23 @@
 import React, { useRef } from "react";
 import { Card, Form, Button } from "react-bootstrap";
+import { useAuth } from "../Contexts/AuthContext";
 export default () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const { signUp } = useAuth();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    signUp(emailRef.current.value, passwordRef.current.value);
+  };
+
   return (
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2 style={{ textAlign: "center", marginBottom: "4%" }}>Sign Up</h2>
           <Form>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -22,13 +31,13 @@ export default () => {
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control type="password" required ref={passwordConfirmRef} />
             </Form.Group>
-            <Button type="submit" className="w-100">
+            <Button type="submit" style={{ width: "100%" }}>
               Sign Up
             </Button>
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div style={{ width: "100%", textAlign: "center", marginTop: "2%" }}>
         Already have an account? Login
       </div>
     </>

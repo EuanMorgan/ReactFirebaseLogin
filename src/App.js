@@ -1,15 +1,24 @@
 import SignUp from "./Components/SignUp";
-import { Container } from "react-bootstrap";
+
+import styled from "styled-components";
+import { AuthProvider } from "./Contexts/AuthContext";
+
 const App = () => {
+  const Container = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+  `;
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <SignUp />
-      </div>
-    </Container>
+    // Everything is wrapped in the auth provider, allowing the components to access the user
+    <AuthProvider>
+      <Container>
+        <div style={{ maxWidth: "400px", width: "100%" }}>
+          <SignUp />
+        </div>
+      </Container>
+    </AuthProvider>
   );
 };
 
