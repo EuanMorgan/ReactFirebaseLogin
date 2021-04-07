@@ -1,8 +1,9 @@
-import SignUp from "./Components/SignUp";
-
 import styled from "styled-components";
 import { AuthProvider } from "./Contexts/AuthContext";
-
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import SignUp from "./Components/SignUp";
+import Dashboard from "./Components/Dashboard";
+import Login from "./Components/Login";
 const App = () => {
   const Container = styled.div`
     display: flex;
@@ -12,13 +13,20 @@ const App = () => {
   `;
   return (
     // Everything is wrapped in the auth provider, allowing the components to access the user
-    <AuthProvider>
-      <Container>
-        <div style={{ maxWidth: "400px", width: "100%" }}>
-          <SignUp />
-        </div>
-      </Container>
-    </AuthProvider>
+
+    <Container>
+      <div style={{ maxWidth: "400px", width: "100%" }}>
+        <BrowserRouter>
+          <AuthProvider>
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={Login} />
+            </Switch>
+          </AuthProvider>
+        </BrowserRouter>
+      </div>
+    </Container>
   );
 };
 

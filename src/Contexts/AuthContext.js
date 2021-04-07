@@ -15,9 +15,14 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true); //loading true by default because it takes a second to get user data
 
+  //signup and login, can change these two functions if not using firebase
   const signUp = (email, password) => {
     return auth.createUserWithEmailAndPassword(email, password);
+  };
+  const login = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
   };
 
   useEffect(() => {
@@ -25,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     //in use effect to only set listener once, and to unsubscribe when needed
     const unsub = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setLoading(false);
     });
 
     return unsub;
@@ -33,6 +39,12 @@ export const AuthProvider = ({ children }) => {
   const value = {
     currentUser,
     signUp,
+    login,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+      {/* dont render children if not loading */}
+    </AuthContext.Provider>
+  );
 };
