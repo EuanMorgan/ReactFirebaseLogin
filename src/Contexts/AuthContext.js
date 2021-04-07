@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true); //loading true by default because it takes a second to get user data
 
-  //signup and login, can change these two functions if not using firebase
+  // can change these functions if not using firebase
   const signUp = (email, password) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
@@ -26,6 +26,9 @@ export const AuthProvider = ({ children }) => {
   };
   const logout = () => {
     return auth.signOut();
+  };
+  const resetPassword = (email) => {
+    return auth.sendPasswordResetEmail(email);
   };
 
   useEffect(() => {
@@ -44,6 +47,7 @@ export const AuthProvider = ({ children }) => {
     signUp,
     login,
     logout,
+    resetPassword,
   };
   return (
     <AuthContext.Provider value={value}>
