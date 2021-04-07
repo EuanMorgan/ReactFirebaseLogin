@@ -24,6 +24,9 @@ export const AuthProvider = ({ children }) => {
   const login = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
+  const logout = () => {
+    return auth.signOut();
+  };
 
   useEffect(() => {
     //whenever a new user is logged in, this method is called
@@ -40,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     currentUser,
     signUp,
     login,
+    logout,
   };
   return (
     <AuthContext.Provider value={value}>

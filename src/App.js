@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard";
 import Login from "./Components/Login";
+import PrivateRoute from "./Components/PrivateRoute";
 const App = () => {
   const Container = styled.div`
     display: flex;
@@ -19,7 +20,7 @@ const App = () => {
         <BrowserRouter>
           <AuthProvider>
             <Switch>
-              <Route exact path="/" component={Dashboard} />
+              <PrivateRoute exact path="/" component={Dashboard} />
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
             </Switch>

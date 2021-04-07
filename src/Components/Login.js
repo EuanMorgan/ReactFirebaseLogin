@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../Contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 export default () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -16,6 +16,7 @@ export default () => {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
     } catch (error) {
       console.log(error);
       setError(`Failed to sign in.${error.message}`);
